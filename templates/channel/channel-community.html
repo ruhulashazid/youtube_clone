@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block style %} <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">{% endblock style %}
+
+{% block content %}
+
+<style>
+    a{
+        color: black;
+    }
+</style>
+
+<div class="mainBody">
+{% include 'partials/sidebar.html' %}
+    <!-- Video Section Starts -->
+    <div class="videos">
+        {% include 'channel/partials/channel-header.html' %}
+        
+        <div class="videos__container">
+            <!-- Single Video Starts Here -->
+
+            {% for c in community %}
+            <div class="content-border">
+                <div class="content-div">
+                    <div class="header-comm">
+                        <div class="channel-details">
+                            {% if c.channel.image %}
+                            <img src="{{c.channel.image.url}}" class="channel-img-com" alt="">
+                            {% else %}
+                            <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714.jpg" class="channel-img-com" alt="">
+                            {% endif %}
+                            <h5>{{c.channel.channel_name}}</h5>
+                            <span>{{c.date|timesince}} ago</span>
+                        </div>
+                        <!-- <div class="elipse-icon">
+                            <i class="material-symbols-outlined">sort</i>
+                        </div> -->
+                        {% if c.channel.user == request.user %}
+                        <div class="dropdown">
+                            <button class="dropbtn"> 
+                                <i class="material-symbols-outlined">sort</i>
+                            </button>
+                            <div class="dropdown-content">
+                                <a href="{% url 'edit-post' c.channel.id c.id %}"> <i class="material-symbols-outlined">edit</i> &nbsp; Edit</a>
+                                <a href="{% url 'delete-post' c.channel.id c.id %}"> <i class="material-symbols-outlined">delete</i> &nbsp; Delete</a>
+                                <a href="#"> <i class="material-symbols-outlined">share</i> &nbsp; Share</a>
+                            </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="content">
+                        <a href="{% url 'channel-community-detail' c.channel.id c.id %}"><h3>{{ c.content|truncatechars:200 }}</h3></a>
+                        {% if c.image %}
+                        <a href="{% url 'channel-community-detail' c.channel.id c.id %}"><img src="{{c.image.url}}" alt=""></a>
+                       
+                        {% endif %}
+                    </div>
+                    <div class="icon-section">
+                        <div class="single-icon">
+                            <a href="{% url 'community-post-like' c.id %}"><i class="materiald-icons material-symbols-outlined">thumb_up</i></a>
+                            <span>{{c.likes.all.count}}</span>
+                        </div>
+
+                        <div class="single-icon">
+                            <a href="{% url 'community-post-like' c.id %}"><i class="materiald-icons material-symbols-outlined">thumb_down</i></a>
+                        </div>
+
+                        <div class="single-icon">
+                            <i class="materiald-icons material-symbols-outlined">share</i>
+                        </div>
+
+                        <div class="single-icon">
+                            <a href="{% url 'channel-community-detail' c.channel.id c.id %}"><i class="materiald-icons material-symbols-outlined">chat</i></a>
+                            <span>{{c.comments.all.count}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            
+
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

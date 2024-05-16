@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block style %} <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">{% endblock style %}
+
+{% block content %}
+
+<head>
+    <style>
+        .comment-class:focus{
+            outline: none;
+    }
+    </style>
+</head>
+
+<div class="mainBody">
+    {% include 'partials/sidebar.html' %}
+
+        <!-- Video Section Starts -->
+    <div class="videos">
+        {% include 'channel/partials/channel-header.html' %}
+        
+        <div class="videos__container">
+            <!-- Single Video Starts Here -->
+
+            <div class="content-border">
+                <div class="content-div">
+
+                    
+
+                    {% include 'partials/alert.html' %}
+                        
+                
+                    <div class="header-comm">
+                        <div class="channel-details">
+                            {% if community.channel.image %}
+                            <img src="{{community.channel.image.url}}" class="channel-img-com" alt="">
+                            {% else %}
+                            <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714.jpg" class="channel-img-com" alt="">
+                            {% endif %}
+                            <h5>{{community.channel.channel_name}}</h5>
+                            <span>{{ community.date|timesince }} ago</span>
+                        </div>
+                        <!-- <div class="elipse-icon">
+                            <i class="material-symbols-outlined">sort</i>
+                        </div> -->
+                        <div class="dropdown">
+                            <button class="dropbtn"> 
+                                <i class="material-symbols-outlined">sort</i>
+                            </button>
+                            <div class="dropdown-content">
+                                <a href="{% url 'edit-post' community.channel.id community.id %}"> <i class="material-symbols-outlined">edit</i> &nbsp; Edit</a>
+                                <a href="{% url 'delete-post' community.channel.id community.id %}"> <i class="material-symbols-outlined">delete</i> &nbsp; Delete</a>
+                                <a href="#"> <i class="material-symbols-outlined">share</i> &nbsp; Share</a>
+                            </div>
+                            </div>
+                        
+                    </div>
+                    <div class="content">
+                        <h3>{{ community.content }}</h3>
+                        {% if community.image %}
+                        <img src="{{community.image.url}}" alt="">
+                        {% endif %}
+                    </div>
+                    <div class="icon-section">
+                        <div class="single-icon">
+                            <a href="{% url 'community-post-like' community.id %}"><i class="materiald-icons material-symbols-outlined">thumb_up</i></a>
+                            <span>{{ community.likes.all.count }}</span>
+                        </div>
+
+                        <div class="single-icon">
+                            <a href="{% url 'community-post-like' community.id %}"><i class="materiald-icons material-symbols-outlined">thumb_down</i></a>
+
+                        </div>
+
+                        <div class="single-icon">
+                            <i class="materiald-icons material-symbols-outlined">share</i>
+                        </div>
+
+                        <div class="single-icon">
+                            <i class="materiald-icons material-symbols-outlined">chat</i>
+                            <span>{{community.comments.all.count}}</span>
+                        </div>
+                    </div>
+
+
+                    <hr><br><br>
+
+                    
+                    <div class="comment-section">
+                        <h4>{{ community.comments.all.count }} Comment{{ community.comments.all.count|pluralize }}</h4>
+                        <!-- Create Comment Section -->
+                        <div class="create-comment">
+                            <div class="create-comment-img">
+                                <!-- <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714.jpg" alt=""> -->
+                            </div>
+                            <!-- Comment Form -->
+                            <form action="{% url 'community-create-comment' community.id %}" method="POST">
+                                {% csrf_token %}
+                                <div class="create-comment-input">
+                                    <input class="comment-class" name="comment" id="comment" type="text" placeholder="Add a comment">
+                                    <button type="submit"><i class="material-icons">send</i></button>
+                                </div>
+                            </form>
+                            <!-- End COmment FOrm -->
+                        </div>
+
+                        <!-- Comments Section -->
+                        {% for c in comments %}
+                        <div class="comment-wrap">
+                            <div class="comments">
+                                <div class="comment-img">
+                                    <!-- <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714.jpg" alt=""> -->
+                                </div>
+                                <div class="comment-content">
+                                    <div class="comment-header">
+                                        <h4><b>{{ c.user.username|title }}</b></h4>
+                                        <p><small>{{c.date|timesince}} ago</small></p>
+                                    </div>
+                                    <p>{{ c.comment }}</p>
+                                    <!-- <div class="comment-icons">
+                                        <div class="comment-icon-single">
+                                            <i class="material-icons">thumb_up</i>
+                                            <span>2</span>
+                                        </div>
+                                        <div class="comment-icon-single">
+                                            <i class="material-icons">thumb_up</i>
+                                        </div>
+                                        <div class="comment-icon-single">
+                                            <span>Reply</span>
+                                        </div>
+                                    </div> -->
+                                </div>
+                            </div>
+                            <div class="delete-comment">
+                                <a href="{% url 'community-delete-comment' c.community.id c.id %}"><i class="material-icons">delete</i></a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

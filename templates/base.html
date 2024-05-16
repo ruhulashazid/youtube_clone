@@ -1,0 +1,100 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Youtube</title>
+
+    <link rel="icon" type="images/png" href="{% static 'images/youtube-icon.png' %}">
+
+    {% block style %}
+
+    {% endblock style %}
+
+    {% block single %}
+    
+    {% endblock single %}
+
+
+    
+    
+    <!-- CDNS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css" integrity="sha384-3B6NwesSXE7YJlcLI9RpRqGf2p/EgVH8BgoKTaUrmKNDkHPStTQ3EyoYjCGXaOTS" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js" integrity="sha512-u9akINsQsAkG9xjc1cnGF4zw5TFDwkxuc9vUp5dltDWYCSmyd0meygbvgXrlc/z7/o4a19Fb5V0OUE58J7dcyw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+
+    <style>
+        .message-alert{
+            background-color: rgb(166, 255, 166);
+            padding: 14px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            border: 1px solid green;
+        }
+        a{
+            text-decoration: none;
+        }
+    </style>
+
+</head>
+<body>
+
+    <div class="header">
+        <!-- Header menu Start -->
+
+        <a href="{% url 'index' %}">
+            <div class="header__left">
+                <i id="menu" class="material-icons">menu</i>
+                <img src="https://www.xda-developers.com/files/2017/08/After-12-Years-Google-Gives-YouTube-a-New-Logo-1900x700_c.png" alt="">
+            </div>
+        </a>
+        <!-- Header menu end -->
+
+        <!-- Header seach Start -->
+
+        <div class="header__search">
+            <form action="{% url 'search' %}" method="GET">
+                <input type="text" placeholder="Search" name="q">
+                <button><i class="material-icons">search</i></button>
+            </form>
+        </div>
+        <!-- Header search Start -->
+        
+        <!-- Header Icons Start -->
+        <div class="header__icons">
+            <i class="material-icons display-this">search</i>
+            <a href="{% url 'upload-video' %}"><i class="material-icons ">videocam</i></a>
+            <!-- <a href="{% url 'upload-video' %}"><i class="material-icons ">plus</i></a> -->
+            <i class="material-icons">apps</i>
+            {% if request.user.is_authenticated %}
+            <a href="{% url 'create-post' request.user.id %}"><i class="material-icons">add</i></a>
+            {% else %}
+            <a href="{% url 'sign-in' %}"><i class="material-icons">add</i></a>
+
+            {% endif %}
+            
+            <i class="material-icons display-this">notifications</i>
+            
+            {% if request.user.is_authenticated %}
+            <a href="{% url 'channel-profile' request.user.id %}"><i id="drop-down" class="material-icons display-this">account_circle</i></a>
+            {% else %}
+            <a href="{% url 'sign-in' %}"><i id="drop-down" class="material-icons display-this">account_circle</i></a>
+            {% endif %}
+                
+        </div>
+        <!-- Header Icons Ends -->
+
+    </div>
+
+    {% block content %}
+
+    {% endblock content %}
+    
+
+<script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

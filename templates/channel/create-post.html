@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block style %} <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">{% endblock style %}
+
+{% block content %}
+
+<div class="mainBody">
+    {% include 'partials/sidebar.html' %}
+    <div class="videos">
+        <div>
+        </div>
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <div class="upload-content">
+                <div class="left-video">
+                    <h4>Details</h4>
+                    <div class="error">
+                        <strong>{{ form.errors }}</strong>
+                    </div>
+                    
+                    <div class="desc-div">
+                        <span>Description (required) <span id="desc-count"></span> </span> <br>
+                        <!-- <textarea name="" id="description" onkeyup="desc_validate()"></textarea> -->
+                        {{form.content}}
+                    </div>
+                    
+                    <div class="video-div file-input" id="file-input">
+                        <small>Thumbnail (required) </small> <br>
+                        {{form.image}}
+                        <!-- <input type="file" class="file"> -->
+                        <!-- <input type='file'> -->
+                        <span class='button'><i class="material-icons">image</i></span>
+                        <span class='label' data-js-label>No image selected</label>
+                        
+                    </div>
+                    
+
+                    <div class="upload-btn-div">
+                        <button type="submit" class="upload-btn">Publish</button>
+                    </div>
+                </div>
+                
+            </div>
+        </form>
+        
+    </div>
+</div>
+
+{% endblock content %}

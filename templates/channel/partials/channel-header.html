@@ -1,0 +1,40 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js" integrity="sha512-u9akINsQsAkG9xjc1cnGF4zw5TFDwkxuc9vUp5dltDWYCSmyd0meygbvgXrlc/z7/o4a19Fb5V0OUE58J7dcyw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<div class="channel-art">
+    {% if channel.channel_art.url %}
+    <img style="object-fit: cover;" src="{{ channel.channel_art.url }}" alt="">
+    {% else %}
+    <img src="https://wallpaper.dog/large/10702685.jpg" alt="">
+
+    {% endif %}
+</div>
+<div class="channel-header flex">
+    <div class="channel-img-title flex">
+        {% if channel.image %}
+        <img class="img" src="{{channel.image.url}}" alt="">
+        {% else %}
+        <img class="img" src="https://thumbs.dreamstime.com/b/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714.jpg" alt="">
+
+        {% endif %}
+        <div class="channel-image-texts">
+            <h4>{{channel.channel_name}}</h4>
+            <span id="count"></span><span> subscribers</span>
+        </div>
+    </div>
+    <div class="channel-header-btns">
+        <div><a href="" class="channel-join">Join</a></div>
+        <div><button id="sub_btn" onclick="addsub()" class="channel-subscribe sub_button_channel">Subscribe</button></div>
+    </div>
+</div>
+<div class="channel-header-links flex">
+    <a href="{% url 'channel-profile' channel.id %}" class="display-this">Home</a>
+    <a href="{% url 'channel-videos' channel.id %}" class="display-this">Videos</a>
+    <a href="{% url 'channel-community' channel.id %}" class="dont-display-thdis">Community</a>
+    <!-- <a href="{% url 'channel-profile' channel.id %}" class="dont-display-this">Membership</a> -->
+    <!-- <a href="{% url 'channel-profile' channel.id %}" class="dont-display-this">Channels</a> -->
+    <a href="{% url 'channel-about' channel.id %}" class="displhray-this">About</a>
+    <a href="{% url 'channel-profile' channel.id %}" class="dont-display-this"><i class="material-icons">search</i></a>
+</div>
+<hr>
+
+{% include 'channel/partials/subscribe-axios.html' %}

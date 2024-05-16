@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block style %} <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">{% endblock style %}
+
+{% block content %}
+
+<div class="mainBody">
+    {% include 'partials/sidebar.html' %}
+
+        <!-- Video Section Starts -->
+        <div class="videos">
+            
+            {% include 'channel/partials/channel-header.html' %}
+            <div class="conteent-border">
+                <div class="about-div">
+                    <div class="about-left">
+                        <h3>Description</h3>
+                        <h4>{{ channel.description }}</h4>
+                        <hr>
+                        <div class="about-details">
+                            <div>
+                                <h4>Details</h4>
+                            </div>
+                            
+                            {% if channel.make_business_email_public == True %}
+                            <div class="about-biz">
+                                <h3><small>For business enquiry:</small></h3>
+                                <h3 class="left-h4"><small>{{ channel.business_email }}</small></h3>
+                            </div>
+                            {% endif %}
+                            {% if channel.make_business_location_public == True %}
+                            <div class="about-biz">
+                                <h3><small>Business location:</small></h3>
+                                <h3 class="left-h4"><small>{{ channel.business_location }}</small></h3>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <hr>
+                        <div class="links">
+                            <h4>Links</h4>
+                        
+                            <div class="links-content">
+                                <a href="{{channel.website}}">Website</a> <br><br>
+                                <a href="{{channel.facebook}}">Facebook</a> <br><br>
+                                <a href="{{channel.instgram}}">Instagram</a> <br><br>
+                                <a href="{{channel.twitter}}">Twitter</a>  
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="about-right">
+                        <h4><b>Stats</b></h4>
+                        <hr>
+                        <div class="stats">
+                            <h5>{{channel.joined|date:"M d, Y"}}</h5>
+                            <hr>
+                            <h5>{{channel.total_views}} View{{channel.total_views|pluralize}}</h5>
+                            <hr>
+                            <h5>
+                                <i class="material-symbols-outlined">flag</i>
+                            </h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="videos__container">
+                <!-- Single Video Starts Here -->
+
+                
+
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block style %} <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">{% endblock style %}
+
+{% block content %}
+
+{% include 'partials/alert.html' %}
+
+<div class="mainBody">
+    {% include 'partials/sidebar.html' %}
+
+    <!-- Video Section Starts -->
+    <div class="videos">
+        <div class="drop-down-container">
+            <h1 style="font-size: 20px;"><small>Showing Results for <i>"{{query}}"</i></small></h1>
+        </div>
+            
+        <div class="videos__container">
+            <!-- Single Video Starts Here -->
+            {% for v in video %}
+            <div class="video">
+                <div class="video__thumbnail">
+                    {% if v.image %}
+                    <a href="{% url 'video-detail' v.id %}"><img src="{{v.image.url}}" alt=""></a>
+                    {% else %}
+                    <a href="{% url 'video-detail' v.id %}"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrf0lpB42PwkxZCIvkgPjzFbA4SMYVhjyVLDdrC5_OLJEAI4GCqBfknjVqIeqQXvHuX9A&usqp=CAU" alt=""></a>
+                    {% endif %}
+                </div>
+                <div class="video__details">
+                    <div class="author">
+                        {% if v.user.channel.image %}
+                        <a href="{% url 'channel-profile' v.user.channel.id %}"><img src="{{ v.user.channel.image.url }}" alt=""></a>
+                        {% else %}
+                        <a href="{% url 'channel-profile' v.user.channel.id %}"><img src="https://cdn-icons-png.flaticon.com/512/1053/1053244.png?w=360" alt=""></a>
+                        {% endif %}
+                    </div>
+                    <div class="title">
+                        <a href="{% url 'video-detail' v.id %}"><h3>{{v.title|truncatechars:34}}</h3></a>
+                        <a href="{% url 'channel-profile' v.user.channel.id %}"><small>{{v.user.channel.channel_name}} {% if v.user.channel.verified == True %} <i class="fas fa-check-circle"></i> {% endif %} </small></a>
+                        <span><small>{{ v.views }} View{{ v.views|pluralize }} . {{ v.date|timesince }} ago</small></span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

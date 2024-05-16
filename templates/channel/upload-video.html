@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block style %} <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">{% endblock style %}
+
+{% block content %}
+
+<div class="mainBody">
+    {% include 'partials/sidebar.html' %}
+
+    <!-- Video Section Starts -->
+    <div class="videos">
+        <div>
+        </div>
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <div class="upload-content">
+                <div class="left-video">
+                    <h4>Details</h4>
+                    <div class="error">
+                        <strong>{{ form.errors }}</strong>
+                    </div>
+                    <div class="input-div">
+                        <span>Title (required) <span id="count"></span> </span><br>
+                        <!-- <input id="title" type="text" onkeyup="titleValidate()"> -->
+                        {{form.title}}
+                        <div class="error-div" id="error-div">
+                            
+                        </div>
+                    </div>
+                    <script>
+                        
+                    </script>
+                    <div class="desc-div">
+                        <span>Description (required) <span id="desc-count"></span> </span> <br>
+                        <!-- <textarea name="" id="description" onkeyup="desc_validate()"></textarea> -->
+                        {{form.description}}
+                    </div>
+                    
+                    <div class="tags-div">
+                        <span>Tags (optional) </span> <br>
+                        <!-- <input type="text" > -->
+                        {{form.tags}}
+                        <p>Seperate Tags with Comma</p>
+                    </div>
+
+                    <div class="video-div file-input" id="file-input">
+                        <small>Thumbnail (required) </small> <br>
+                        {{form.image}}
+                        <!-- <input type="file" class="file"> -->
+                        <!-- <input type='file'> -->
+                        <span class='button'><i class="material-icons">image</i></span>
+                        <span class='label' data-js-label>No image selected</label> <br>
+                        <img src="{{ video.image.url }}" style="width: 100%;" alt="">
+                        
+                    </div>
+                    
+                    <div class="video-div file-input">
+                        <small>Video (required) </small> <br>
+                        <!-- <input type="file" class="file"> -->
+                        {{form.video}}
+
+                        <!-- <input type='file'> -->
+                        <span class='button'><i class="material-icons">videocam</i></span>
+                        <span class='label' data-js-label>No video selected</label>
+                        </div>
+                        {% if video.video.url %}
+                        <div class="video-div file-input">
+                            <span><small style="color: black;">Existing Video</small></span>
+                        <video style="width: 100%;" controls>
+                            <source style="width: 100%;" type="video/mp4" src="{{ video.video.url }}">
+                        </video>
+                        </div>
+                        {% endif %}
+
+                    <div class="video-div file-input">
+                        <small>visibility (required) </small> <br>
+                        <!-- <input type="file" class="file"> -->
+                        {{form.visibility}}
+
+                        <!-- <input type='file'> -->
+                        
+                    </div>
+                    <div class="upload-btn-div">
+                        <button type="submit" class="upload-btn">Publish</button>
+                    </div>
+                </div>
+                <div class="right-video">
+                    <div class="r-thumb">
+                        <div class="uploading-video">
+                            <h5>Uploading Video...</h5>
+                        </div>
+                        <!-- <img src="images/logo.jpg" alt=""> -->
+                        <div class="video-details">
+                                <h5>Video Links</h5>
+                                <a href="">https://youtu.be/Bgstu6u&4</a>
+                            
+                                <h4>Filename</h4>
+                                <span >Video File name here</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        
+    </div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,242 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0" />
+        <title>Kanakku - Bootstrap Admin HTML Template</title>
+
+        <link rel="shortcut icon" href="{% static 'assets/img/favicon.png' %}" />
+
+        <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}" />
+
+        <link rel="stylesheet" href="{% static 'assets/plugins/fontawesome/css/fontawesome.min.css' %}" />
+        <link rel="stylesheet" href="{% static 'assets/plugins/fontawesome/css/all.min.css' %}" />
+
+        <link rel="stylesheet" href="{% static 'assets/css/style.css' %}" />
+    </head>
+
+    <body class="nk-body bg-lighter npc-default has-sidebar no-touch nk-nio-theme">
+        <div class="main-wrapper">
+            <div class="header header-one">
+                <div class="header-left header-left-one">
+                    <a href="{% url 'index' %}" class="logo">
+                        <img src="https://static.wikia.nocookie.net/logopedia/images/c/c0/YouTube_Studio_short.svg/revision/latest?cb=20200216210451" alt="Logo" />
+                    </a>
+                    <a href="{% url 'index' %}" class="white-logo">
+                        <img src="https://static.wikia.nocookie.net/logopedia/images/c/c0/YouTube_Studio_short.svg/revision/latest?cb=20200216210451" alt="Logo" />
+                    </a>
+                    <a href="{% url 'index' %}" class="logo logo-small">
+                        <img src="https://static.wikia.nocookie.net/logopedia/images/c/c0/YouTube_Studio_short.svg/revision/latest?cb=20200216210451" alt="Logo" width="30" height="30" />
+                    </a>
+                </div>
+
+                <a href="javascript:void(0);" id="toggle_btn">
+                    <i class="fas fa-bars"></i>
+                </a>
+
+                <div class="top-nav-search">
+                    <form>
+                        <input type="text" class="form-control" placeholder="Search here" />
+                        <button class="btn" type="submit"><i class="fas fa-search"></i></button>
+                    </form>
+                </div>
+
+                <a class="mobile_btn" id="mobile_btn">
+                    <i class="fas fa-bars"></i>
+                </a>
+
+                <ul class="nav nav-tabs user-menu">
+                   
+                    <li class="nav-item dropdown has-arrow main-drop">
+                        <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
+                            <span class="user-img">
+                                <img src="{{ channel.image.url }}" style="width: 50px; height: 50px; object-fit: cover;" alt="" />
+                                <span class="status online"></span>
+                            </span>
+                            <span>{{ channel.channel_name }}</span>
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{% url 'channel-profile' request.user.id %}"><i data-feather="user" class="me-1"></i> Channel</a>
+                            <a class="dropdown-item" href="{% url 'channel-profile' request.user.id %}"><i data-feather="settings" class="me-1"></i> Settings</a>
+                            <a class="dropdown-item" href="{% url 'sign-out' %}"><i data-feather="log-out" class="me-1"></i> Logout</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="sidebar" id="sidebar">
+                <div class="sidebar-inner slimscroll">
+                    <div id="sidebar-menu" class="sidebar-menu">
+                        <ul>
+                            <li class="menu-title"><span>Main</span></li>
+                            <li class="active">
+                                <a href="{% url 'studio' %}"><i data-feather="home"></i> <span>Dashboard</span></a>
+                            </li>
+                            <li>
+                                <a href="{% url 'sign-out' %}"><i data-feather="users"></i> <span>Logout</span></a>
+                            </li>
+                            
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-wrapper">
+                <div class="content container-fluid">
+                    <div class="row">
+                        <div class="col-xl-4 col-sm-6 col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="dash-widget-header">
+                                        <span class="dash-widget-icon bg-1">
+                                            <i class="fab fa-youtube"></i>
+                                        </span>
+                                        <div class="dash-count">
+                                            <div class="dash-title">Videos</div>
+                                            <div class="dash-counts">
+                                                <p>{{videos.count}} Video(s)</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-sm-6 col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="dash-widget-header">
+                                        <span class="dash-widget-icon bg-2">
+                                            <i class="fas fa-users"></i>
+                                        </span>
+                                        <div class="dash-count">
+                                            <div class="dash-title">Subscribers</div>
+                                            <div class="dash-counts">
+                                                <p>{{channel.subscribers.all.count}} Subscriber(s)</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-4 col-sm-6 col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="dash-widget-header">
+                                        <span class="dash-widget-icon bg-3">
+                                            <i class="fas fa-eye"></i>
+                                        </span>
+                                        <div class="dash-count">
+                                            <div class="dash-title">Total Views</div>
+                                            <div class="dash-counts">
+                                                <p>{{channel.total_views}} View(s)</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12 col-sm-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="row">
+                                        <div class="col">
+                                            <h5 class="card-title">All Videos</h5>
+                                        </div>
+                                        <div class="col-auto">
+                                            <a href="invoices.html" class="btn-right btn btn-sm btn-outline-primary">
+                                                View All
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <div class="progress progress-md rounded-pill mb-3">
+                                            <div class="progress-bar bg-success" role="progressbar" style="width: 47%;" aria-valuenow="47" aria-valuemin="0" aria-valuemax="100"></div>
+                                            <div class="progress-bar bg-warning" role="progressbar" style="width: 28%;" aria-valuenow="28" aria-valuemin="0" aria-valuemax="100"></div>
+                                            <div class="progress-bar bg-danger" role="progressbar" style="width: 15%;" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                            <div class="progress-bar bg-info" role="progressbar" style="width: 10%;" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table class="table table-stripped table-hover">
+                                            <thead class="thead-light">
+                                                <tr>
+                                                    <th>Video</th>
+                                                    <th>Visibility</th>
+                                                    <th>Date</th>
+                                                    <th>Views</th>
+                                                    <th>Comments</th>
+                                                    <th>Likes</th>
+                                                    <th class="text-right">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                
+                                                {% for v in videos %}
+                                                    
+                                                
+                                                <tr>
+                                                    <td>
+                                                        <h2 class="table-avatar">
+                                                            <a href="{% url 'video-detail' v.id  %}"><img class="avatar avatar-sm me-2 avatar-img roundded-circle" style="width: 100px; height: 50px; object-fit: cover;" src="{{ v.image.url }}" alt="User Image" />{{v.title|truncatechars:40}}</a>
+                                                        </h2>
+                                                    </td>
+                                                    <td><span class="badge bg-dark">{{ v.visibility|title }}</span></td>
+
+                                                    <td><small>{{ v.date }}</small></td>
+                                                    <td>{{ v.views }}</td>
+                                                    <td>{{ v.comment.all.count }}</td>
+                                                    <td><span class="">{{v.likes.all.count}}</span></td>
+                                                    <td class="text-right">
+                                                        <div class="dropdown dropdown-action">
+                                                            <a href="#" class="action-icon dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></a>
+                                                            <div class="dropdown-menu dropdown-menu-right">
+                                                                <a class="dropdown-item" href="{% url 'video-edit' v.user.id v.id %}"><i class="far fa-edit me-2"></i>Edit</a>
+                                                                <a class="dropdown-item" href="{% url 'video-detail' v.id  %}"><i class="far fa-eye me-2"></i>View</a>
+                                                                <a class="dropdown-item" href="{% url 'video-delete' v.id  %}"><i class="far fa-trash-alt me-2"></i>Delete</a>
+                                                                <!-- <a class="dropdown-item" href="javascript:void(0);"><i class="far fa-check-circle me-2"></i>Mark as sent</a> -->
+                                                                <!-- <a class="dropdown-item" href="javascript:void(0);"><i class="far fa-paper-plane me-2"></i>Send Invoice</a> -->
+                                                                <!-- <a class="dropdown-item" href="javascript:void(0);"><i class="far fa-copy me-2"></i>Clone Invoice</a> -->
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                {% endfor %}
+                                                
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="{% static 'assets/js/jquery-3.6.0.min.js' %}"></script>
+
+        <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+
+        <script src="{% static 'assets/js/feather.min.js' %}"></script>
+
+        <script src="{% static 'assets/plugins/slimscroll/jquery.slimscroll.min.js' %}"></script>
+
+        <script src="{% static 'assets/plugins/apexchart/apexcharts.min.js' %}"></script>
+        <script src="{% static 'assets/plugins/apexchart/chart-data.js' %}"></script>
+
+        <script src="{% static 'assets/js/script.js' %}"></script>
+    </body>
+</html>
